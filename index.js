@@ -12,3 +12,16 @@ app.get("/restaurants", async (req, res) => {
     count: data.restaurants.length,
   });
 });
+
+app.get("/restaurants/:restaurantId", async (req, res) => {
+  const restaurantId = +req.params.restaurantId;
+  const restaurant = data.restaurants.find(
+    (restaurant) => restaurant.id === restaurantId
+  );
+  if (!restaurant) {
+    res.status(404).send("not found");
+    return;
+  }
+  res.json(restaurant);
+});
+
