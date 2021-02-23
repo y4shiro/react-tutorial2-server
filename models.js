@@ -72,4 +72,3 @@ Restaurant.hasMany(Review);
 Review.belongsTo(Restaurant);
 User.hasMany(Review);
 Review.belongsTo(User);
-

@@ -20,10 +20,10 @@ app.get("/restaurants", async (req, res) => {
         ],
       ],
     },
-    include: { model: Review, limit:3, include: { model: User } },
+    include: { model: Review, limit: 3, include: { model: User } },
     order: [[sequelize.literal("review_count"), "DESC"]],
     limit,
-    offset
+    offset,
   });
   res.json(restaurants);
 });
