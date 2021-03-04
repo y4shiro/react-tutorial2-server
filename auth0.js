@@ -7,16 +7,16 @@ export const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://dev-ajrt-kp3.us.auth0.com/.well-known/jwks.json`,
+    jwksUri: `https://dev-93g7aot4.jp.auth0.com/.well-known/jwks.json`,
   }),
   audience: "https://shielded-harbor-49193.herokuapp.com",
-  issuer: `https://dev-ajrt-kp3.us.auth0.com/`,
+  issuer: `https://dev-93g7aot4.jp.auth0.com/`,
   algorithms: ["RS256"],
 });
 
 export async function getUser(token) {
   const auth0Request = await fetch(
-    "https://dev-ajrt-kp3.us.auth0.com/userinfo",
+    "https://dev-93g7aot4.jp.auth0.com/userinfo",
     {
       headers: {
         Authorization: token,
