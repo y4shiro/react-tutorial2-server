@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import sequelize from "sequelize";
 import { Restaurant, Review, User } from "./models.js";
-import { checkJwk, getUser } from "./auth0.js";
+import { checkJwt, getUser } from "./auth0.js";
 
 const app = express();
 app.use(cors());
@@ -58,9 +58,9 @@ app.get("/restaurants/:restaurantId/reviews", async (req, res) => {
   res.json(reviews);
 });
 
-app.post("/restaurants/:restaurantId/reviews", checkJwk, async (req, res) => {
+app.post("/restaurants/:restaurantId/reviews", checkJwt, async (req, res) => {
   const auth0User = await getUser(req.get("Authorization"));
-  const [user, created] = await User.finndOrcreate({
+  const [user, created] = await User.findOrCreate({
     where: { sub: auth0User.sub },
     defaults: {
       nickname: auth0User.nickname,
@@ -79,7 +79,8 @@ app.post("/restaurants/:restaurantId/reviews", checkJwk, async (req, res) => {
   }
 
   const record = {
-    title: req.body.comment,
+    title: req.body.title,
+    comment: req.body.comment,
     userId: user.id,
     restaurantId,
   };
@@ -91,7 +92,7 @@ app.post("/restaurants/:restaurantId/reviews", checkJwk, async (req, res) => {
 
   const review = await Review.create(record);
   res.json(review);
-})
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

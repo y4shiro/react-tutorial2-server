@@ -2,16 +2,16 @@ import fetch from "node-fetch";
 import jwt from "express-jwt";
 import jwksRsa from "jwks-rsa";
 
-export const checkJwk = jwt({
+export const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://dev-93g7aot4.jp.auth0.com/.well-known/jwks.json'
+    jwksUri: `https://dev-93g7aot4.jp.auth0.com/.well-known/jwks.json`,
   }),
-  audience: 'https://shrouded-reef-21939.herokuapp.com',
-  issuer: 'https://dev-93g7aot4.jp.auth0.com/',
-  algorithms: ['RS256']
+  audience: "https://shielded-harbor-49193.herokuapp.com",
+  issuer: `https://dev-93g7aot4.jp.auth0.com/`,
+  algorithms: ["RS256"],
 });
 
 export async function getUser(token) {
